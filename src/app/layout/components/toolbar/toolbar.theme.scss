@@ -1,0 +1,15 @@
+@mixin toolbar-theme($theme) {
+
+    $foreground: map-get($theme, foreground);
+
+    toolbar {
+
+        .toolbar-separator {
+            background: map-get($foreground, divider);
+        }
+
+        .text {
+            font-size: 14px !important;
+        }
+    }
+}

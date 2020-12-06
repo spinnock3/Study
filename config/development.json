@@ -1,0 +1,7 @@
+{
+    "env": "development",
+    "DB_CONN": "mongodb://localhost:27017/study_DEVL",
+    "port" : "3000",
+    "uploads_folder" : "C:/data/study/uploads",
+    "email_env": "[DEV]"
+}

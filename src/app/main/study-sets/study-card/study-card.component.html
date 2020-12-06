@@ -1,0 +1,113 @@
+<div class="w-100-p">
+    <mat-card *ngIf="study" class="w-100-p pl-24 pr-24 card" [style.border-left]="borderStyle">
+        <div class="card-header w-100-p" fxLayout="row" fxLayoutAlign="space-between">
+            <h1>{{card_num + 1}}/{{this.study_set.cards.length}}</h1>
+            <h1>Retention: {{card.retention}}%</h1>
+        </div>
+        <mat-card-subtitle></mat-card-subtitle>
+        <div class="w-100-p" fxLayout="row" fxLayoutAling="center center">
+            <button *ngIf="card_num != this.study_set.cards.length-1" mat-mini-fab [disabled]="!show_back || card_num == 0"
+                (click)="changeCard('prev')">
+                <mat-icon>arrow_back_ios</mat-icon>
+            </button>
+            <mat-card-content fxLayout="column" fxLayoutAlign="space-between" class="h-400 w-100-p" *ngIf="!show_back">
+                <div class="h-100-p" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5%">
+                    <h1>{{card.front}}</h1>
+                    <div class="w-100-p">
+                        <form [formGroup]="studyForm">
+                            <mat-form-field class="w-100-p" appearance="outline">
+                                <textarea matInput rows="5" formControlName="userAnswer"></textarea>
+                            </mat-form-field>
+                        </form>
+                    </div>
+                </div>
+                <div class="actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
+                    <button mat-raised-button color="warn"
+                        (click)="studyForm.get('userAnswer').patchValue('NO ANSWER'); checkAnswer()">I DON'T KNOW</button>
+                    <button mat-raised-button color="accent" (click)="checkAnswer()">SUMBIT</button>
+                </div>
+            </mat-card-content>
+            <mat-card-content class="h-100-p w-100-p" *ngIf="show_back">
+                <div class="h-100-p" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+
+                    <div class="h-100-p content-left" fxFlex="50%">
+                        <h1>{{card.front}}</h1>
+                    </div>
+                    <div class="h-100-p" fxFlex="50%">
+                        <div *ngIf="answer_correct == true" class="h-100-p" fxLayout="column"
+                            fxLayoutAlign="center center" fxLayoutGap="1%">
+                            <h1>Your Answer: <span class="green-fg">{{studyForm.get('userAnswer').value}}</span></h1>
+                            <h1>Correct Answer: {{card.back}}</h1>
+                        </div>
+                        <div *ngIf="answer_correct == false" class="h-100-p" fxLayout="column"
+                            fxLayoutAlign="center center" fxLayoutGap="1%">
+                            <h1>Your Answer: <span class="warn-fg">{{studyForm.get('userAnswer').value}}</span></h1>
+                            <h1>Correct Answer: {{card.back}}</h1>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="w-100-p m-24" fxLayout="row" fxLayoutAlign="center center">
+                    <button class="primary" mat-raised-button *ngIf="card_num == this.study_set.cards.length-1">View
+                        Summary</button>
+                </div>
+            </mat-card-content>
+            <button *ngIf="card_num != this.study_set.cards.length-1" mat-mini-fab (click)="changeCard('next')" [disabled]="!show_back">
+                <mat-icon>arrow_forward_ios</mat-icon>
+            </button>
+        </div>
+
+
+    </mat-card>
+    <mat-card *ngIf="!study" class="w-100-p card" [style.border-left]="borderStyle">
+        <div class="card-header w-100-p">
+            <div class="card-title w-100-p">
+                <div class="w-100-p" fxLayout="row" fxLayoutAlign="space-between">
+                    <div>
+                        {{card.retention}}% Retention
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="5%">
+                        <button *ngIf="!edit_mode" (click)="toggleEdit(true)" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="edit_mode" (click)="toggleEdit(false)" mat-icon-button>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                        <button *ngIf="edit_mode" (click)="editCard()" mat-icon-button>
+                            <mat-icon>check</mat-icon>
+                        </button>
+                        <button *ngIf="!edit_mode" (click)="deleteCard()" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-subtitle"></div>
+        </div>
+        <div class="card-content" *ngIf="!study">
+            <div *ngIf="!edit_mode" class="h-100-p" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+                <div class="h-100-p content-left" fxFlex="50%">
+                    <h1>{{card.front}}</h1>
+                </div>
+                <div class="h-100-p" fxFlex="50%">
+                    <h2>{{card.back}}</h2>
+                </div>
+            </div>
+            <form [formGroup]="form">
+                <div *ngIf="edit_mode" class="h-100-p" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+
+                    <div class="h-100-p content-left" fxFlex="50%">
+                        <mat-form-field class="w-100-p" appearance="outline">
+                            <input matInput formControlName="front">
+                        </mat-form-field>
+                    </div>
+                    <div class="h-100-p" fxFlex="50%">
+                        <mat-form-field class="w-100-p" appearance="outline">
+                            <input matInput formControlName="back">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </mat-card>
+</div>

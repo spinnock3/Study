@@ -1,0 +1,14 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "app/app.theme";
+
+.page-header h1 {
+    font-size: 35px;
+    font-weight: lighter;
+}
+
+.avatar {
+    color: #fff !important;
+}

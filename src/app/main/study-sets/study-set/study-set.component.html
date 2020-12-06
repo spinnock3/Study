@@ -1,0 +1,97 @@
+<div *ngIf="!new && !edit && studySet " class="page-layout simple fullwidth">
+    <!-- HEADER -->
+    <div class="header page-header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h1>{{studySet.name}}</h1>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+
+        <div class="mb-24">
+            <button mat-raised-button class="primary" (click)="toggleEdit(true)">Edit</button>
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="2%">
+
+            <div *ngFor="let card of studySet.cards">
+                <app-study-card [study_set]="studySet" class="w-100-p" [card]="card" [study]="false"></app-study-card>
+            </div>
+        </div>
+        <div class="msg_div" *ngIf="!studySet.cards || studySet.cards.length == 0">
+            <h1 class="no_cards_msg">No Cards</h1>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>
+
+<div *ngIf="(new || edit) && studySet && studySet.cards" class="page-layout simple fullwidth">
+    <!-- HEADER -->
+    <div class="header page-header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h1 *ngIf="new">New Study Set</h1>
+        <h1 *ngIf="edit">{{studySet.name}}</h1>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+
+        <div>
+            <mat-form-field class="w-50-p" appearance="outline">
+                <input matInput placeholder="Study Set Name" [(ngModel)]="studySet.name">
+            </mat-form-field>
+        </div>
+
+        <div class="mb-24 w-100-p" fxLayout="row" fxLayoutAlign="space-between">
+            <button mat-fab (click)="addCard()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2%">
+                <button *ngIf="edit" mat-raised-button (click)="toggleEdit(false)">Cancel</button>
+
+                <button *ngIf="new" mat-raised-button (click)="saveSet()">
+                    Save
+                </button>
+                <button *ngIf="edit" mat-raised-button (click)="editSet()">
+                    Save
+                </button>
+            </div>
+
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="2%">
+            <div class="w-100-p" *ngFor="let card of studySet.cards; index as i">
+                <mat-card class="w-100-p card" [style.border-left]="borderStyle">
+                    <div class="card-header w-100-p mb-24">
+                        <div class="card-title w-100-p">
+                            <div fxLayout="row" fxLayoutAlign="end">
+                                <button (click)="deleteCard(i)" mat-mini-fab>
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-subtitle"></div>
+                    </div>
+                    <div class="card-content">
+                        <div class="h-100-p" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
+                            <div class="h-100-p content-left" fxFlex="50%">
+                                <mat-form-field class="w-100-p" appearance="outline">
+                                    <input matInput placeholder="Front of Card" [(ngModel)]="card.front">
+                                </mat-form-field>
+                            </div>
+                            <div class="h-100-p" fxFlex="50%">
+                                <mat-form-field class="w-100-p" appearance="outline">
+                                    <input matInput placeholder="Back of Card" [(ngModel)]="card.back">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="msg_div" *ngIf="!studySet.cards || studySet.cards.length == 0">
+            <h1 class="no_cards_msg">No Cards</h1>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>

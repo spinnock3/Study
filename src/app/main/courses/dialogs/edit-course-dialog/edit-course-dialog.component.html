@@ -1,0 +1,62 @@
+<div fxLayout="row" fxLayoutAlign="space-between" class="mb-12 p-0">
+    <h1>Edit Course</h1>
+
+    <button mat-icon-button aria-label="Dialog Close" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+
+
+
+<!---COURSE FORM-->
+<form [formGroup]="form" autocomplete="off">
+    <div>
+        <h2>Course Name</h2>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <input matInput placeholder="Course Name" formControlName="name">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <h2>Course Term</h2>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2%">
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-select matInput placeholder="Course Semester" formControlName="semester">
+                    <mat-option *ngFor="let semester of semesters" [value]="semester">{{semester}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-select matInput placeholder="Course Year" formControlName="year">
+                    <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!--COURSE COLOR-->
+    <div>
+        <h2>Course Color</h2>
+        <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10%">
+            <div *ngFor="let color of colors">
+                <div class="color-circle" [ngStyle]="{'background-color': color }"
+                    (click)="setColor(color)">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--\ END COURSE COLOR-->
+
+    <mat-divider class="m-24"></mat-divider>
+
+    <!--ACTIONS-->
+    <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2%">
+        <button mat-button class="accent" [mat-dialog-close]="true" matTooltipPosition="above"
+            aria-label="Cancel">Cancel</button>
+        <button [mat-dialog-close]="true" mat-button matTooltip="Create Course" matTooltipPosition="above" aria-label="Create Course" mat-button
+            class="accent" (click)="sendForm()" [disabled]="!form.valid">Submit</button>
+    </div>
+    <!--\ END ACTIONS-->
+</form>
+<!--\ END COURSE FORM-->

@@ -1,0 +1,15 @@
+<div *ngIf="studySet" class="page-layout simple fullwidth">
+    <!-- HEADER -->
+    <div class="header page-header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h1>Study Session: {{studySet.name}}</h1>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+        <div fxLayout="column" fxLayoutGap="2%">
+            <app-study-card class="w-100-p" [study_set]="studySet" [card]="curr_card" [study]="true" (onChangeCard)="changeCard($event)"></app-study-card>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>

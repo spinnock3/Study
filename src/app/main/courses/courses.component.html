@@ -1,0 +1,19 @@
+<div class="page-layout simple fullwidth">
+    <!-- HEADER -->
+    <div class="header page-header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h1>My Courses</h1>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+        <button mat-raised-button color="primary" (click)="openAddDialog()" class="mb-24">New Course</button>
+        <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutAlign="start center" fxLayoutGap="2%">
+            <div class="mb-24" fxFlex="48%" *ngFor="let course of courses">
+                <app-course-card class="w-100-p" [course]="course"></app-course-card>
+            </div>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+
+</div>

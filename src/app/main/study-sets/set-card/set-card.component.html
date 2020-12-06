@@ -1,0 +1,29 @@
+<div class="w-100-p">
+    <mat-card class="w-100-p card">
+        <div class="header" fxLayout="row" fxLayoutAlign="space-between">
+            <div>
+                <mat-card-title>{{set.name}}</mat-card-title>
+                <mat-card-subtitle>Retention Level: {{set.retention}}%</mat-card-subtitle>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                <button color="accent" (click)="editSet()" mat-icon-button>
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button color="accent" (click)="deleteSet()" mat-icon-button>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-card-content>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between">
+                <h4>Cards: {{set.cards.length}}</h4>
+                <div fxLayout="row" fxLayoutGap="2%">
+                    <button [disabled]="!set.cards.length || set.cards.length == 0" mat-raised-button color="secondary"
+                        (click)="studySet()">Study</button>
+                    <button color="primary" mat-raised-button (click)="onSelectSet(set._id)">Select</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+</div>

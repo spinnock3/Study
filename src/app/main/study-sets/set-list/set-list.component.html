@@ -1,0 +1,18 @@
+<div class="page-layout simple fullwidth">
+    <!-- HEADER -->
+    <div class="header page-header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h1>My Study Sets</h1>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+        <button mat-raised-button color="primary" class="mb-24" (click)="newSet()">New Study Set</button>
+        <div fxLayout="column" fxLayoutGap="2%">
+            <div *ngFor="let set of studySets">
+                <app-set-card class="w-100-p" [set]="set"></app-set-card>
+            </div>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>

@@ -1,0 +1,43 @@
+<div fxLayout="row" fxLayoutAlign="space-between" class="mb-12 p-0">
+    <h1>Add Study Set</h1>
+
+    <button mat-icon-button aria-label="Dialog Close" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+
+
+
+<!---COURSE FORM-->
+<form [formGroup]="form" autocomplete="off">
+    <div fxLayout="column" fxLayoutAlign="space-between">
+        <div>
+            <h2>Study Set</h2>
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-select matInput placeholder="study Set" formControlName="set_id">
+                        <mat-option *ngIf="!study_sets || !study_sets.length" [value]="null">No Available Study Sets
+                        </mat-option>
+                        <mat-option *ngFor="let set of study_sets" [value]="set._id">{{set.name}} - {{set.cards.length}}
+                            cards</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+
+
+        <!--ACTIONS-->
+        <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2%">
+            <button mat-button class="accent" [mat-dialog-close]="true" matTooltipPosition="above"
+                aria-label="Cancel">Cancel</button>
+            <button [mat-dialog-close]="true" mat-button matTooltip="Create Course" matTooltipPosition="above"
+                aria-label="Create Course" mat-button class="accent" (click)="sendForm()"
+                [disabled]="!form.valid">Submit</button>
+        </div>
+        <!--\ END ACTIONS-->
+    </div>
+
+</form>
+<!--\ END COURSE FORM-->

@@ -1,0 +1,22 @@
+body {
+    color: #323232;
+}
+
+mat-card {
+    min-height: 300px;
+    padding: 0;
+}
+
+mat-card-content {
+    height: 100%;
+    padding: 24px;
+}
+
+.card {
+    padding: 24px;
+}
+
+.content-left {
+    border-right: 1px solid rgba(0,0,0,0.2); 
+    padding: 20px;
+}

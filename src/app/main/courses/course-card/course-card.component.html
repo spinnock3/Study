@@ -1,0 +1,120 @@
+<div class="w-100-p course_card">
+    <mat-card class="w-100-p card" [style.border-left]="borderStyle" fusePerfectScrollbar>
+        <div class="header" fxLayout="row" fxLayoutAlign="space-between">
+            <mat-card-title>{{course.name}}</mat-card-title>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                <button color="accent" mat-icon-button (click)="openEditDialog(course)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button color="accent" mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="addExam()">Add Existing Exam</button>
+                    <button mat-menu-item (click)="newExam()">Add New Exam</button>
+                    <button mat-menu-item (click)="addStudySet()">Add Existing Study Set</button>
+                    <button mat-menu-item (click)="newStudySet()">Add New Study Set</button>
+                </mat-menu>
+                <button color="accent" (click)="deleteCourse(course._id)" mat-icon-button>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-card-content>
+            <div class="center_div" fxLayout="row" fxLayoutAlign="center center">
+               <div class="w-70-p mt-24" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between">
+                <div fxLayout="column" fxLayoutGap="0.5%" fxLayoutAlign="center center">
+                    <h5>COURSE TERM</h5>
+                    <h1 *ngIf="course.term">{{course.term.semester}} {{course.term.year}}</h1>
+                </div>
+                <div fxLayout="column" fxLayoutGap="0.5%" fxLayoutAlign="center center">
+                    <h5>UPCOMING EXAMS</h5>
+                    <h1 *ngIf="upcoming_exams && upcoming_exams.length">{{upcoming_exams.length}}</h1>
+                    <h1 *ngIf="!upcoming_exams || !upcoming_exams.length">0</h1>
+                </div>
+                <div fxLayout="column" fxLayoutGap="0.5%" fxLayoutAlign="center center">
+                    <h5>STUDY SETS</h5>
+                    <h1 *ngIf="course.study_sets">{{course.study_sets.length}}</h1>
+                    <h1 *ngIf="!course.study_sets">0</h1>
+                </div>
+            </div> 
+            </div>
+            
+
+            <div class="mt-48">
+                <h2>Exams</h2>
+                <table mat-table [dataSource]="exams" class="mat-elevation-z8 w-100-p">
+
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let exam"> {{exam.title}} </td>
+                    </ng-container>
+
+                    <!-- Cards Column -->
+                    <ng-container matColumnDef="start">
+                        <th mat-header-cell *matHeaderCellDef> Start </th>
+                        <td mat-cell *matCellDef="let exam"> {{exam.start | date:'short'}} </td>
+                    </ng-container>
+
+                    <!-- Retention Column -->
+                    <ng-container matColumnDef="end">
+                        <th mat-header-cell *matHeaderCellDef> End </th>
+                        <td mat-cell *matCellDef="let exam"> {{exam.end | date:'short'}} </td>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>  </th>
+                        <td mat-cell *matCellDef="let exam"> <button matTooltip="Remove" matTooltipPosition="above" mat-icon-button color="primary" (click)="removeExam(exam._id)"><mat-icon>delete</mat-icon></button> </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="exam_columns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: exam_columns;"></tr>
+                </table>
+            </div>
+
+            <div class="mt-48">
+                <h2>Study Sets</h2>
+                <table mat-table [dataSource]="sets" class="mat-elevation-z8 w-100-p">
+
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let set"> {{set.name}} </td>
+                    </ng-container>
+
+                    <!-- Cards Column -->
+                    <ng-container matColumnDef="cards">
+                        <th mat-header-cell *matHeaderCellDef> Number of Cards </th>
+                        <td mat-cell *matCellDef="let set"> {{set.cards.length}} </td>
+                    </ng-container>
+
+                    <!-- Retention Column -->
+                    <ng-container matColumnDef="retention">
+                        <th mat-header-cell *matHeaderCellDef> Retention Score </th>
+                        <td mat-cell *matCellDef="let set"> {{set.retention}}% </td>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>  </th>
+                        <td mat-cell *matCellDef="let set"> <button mat-icon-button matTooltip="Study" matTooltipPosition="above" color="primary" (click)="study(set._id)"><mat-icon>chrome_reader_mode</mat-icon></button> <button matTooltip="Remove" matTooltipPosition="above" mat-icon-button color="primary" (click)="removeSet(set._id)"><mat-icon>delete</mat-icon></button> </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="set_columns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: set_columns;"></tr>
+                </table>
+            </div>
+
+
+        </mat-card-content>
+    </mat-card>
+
+</div>
